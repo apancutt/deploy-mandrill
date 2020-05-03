@@ -1,0 +1,50 @@
+{
+  "name": "deploy-mandrill",
+  "version": "0.0.0",
+  "description": "Compiles and deploys templates to Mandrill.",
+  "keywords": [
+    "mandrill",
+    "deploy"
+  ],
+  "homepage": "https://github.com/apancutt/deploy-mandrill#readme",
+  "bugs": {
+    "url": "https://github.com/apancutt/deploy-mandrill/issues"
+  },
+  "author": "Adam Pancutt <adam@pancutt.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apancutt/deploy-mandrill.git"
+  },
+  "bin": "./bin/deploy-mandrill",
+  "files": [
+    "bin",
+    "src"
+  ],
+  "dependencies": {
+    "deepmerge": "4",
+    "diff": "4",
+    "inline-css": "2",
+    "inquirer": "7",
+    "mandrill-api": "1",
+    "pretty": "2",
+    "winston": "3",
+    "yargs": "15"
+  },
+  "devDependencies": {
+    "babel-eslint": "10",
+    "eslint": "6",
+    "jest": "25"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": false,
+      "commonjs": true,
+      "es6": true,
+      "jest": true,
+      "node": true
+    },
+    "parser": "babel-eslint",
+    "extends": "eslint:recommended"
+  }
+}
