@@ -2,7 +2,7 @@ const fs = require('fs');
 const p = require('path');
 
 module.exports = {
-  root: p.resolve(`${__dirname}/../../`),
+  root: process.env.INIT_CWD || p.resolve(`${__dirname}/../..`),
   directories: (path) => new Promise((resolve) => {
     try {
       resolve(
