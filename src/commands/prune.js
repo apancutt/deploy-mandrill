@@ -16,7 +16,7 @@ const prune = (client, name) => (
 );
 
 module.exports = {
-  command: 'prune [options]',
+  command: 'prune',
   describe: 'Remove templates from Mandrill that do not exist locally.',
   handler: (argv) => {
 

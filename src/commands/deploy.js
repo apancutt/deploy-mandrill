@@ -94,7 +94,7 @@ const deploy = (client, template, locale) => (
 );
 
 module.exports = {
-  command: 'deploy [options]',
+  command: 'deploy',
   describe: 'Deploy compiled templates to Mandrill.',
   builder: {
     locale: {

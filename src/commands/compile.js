@@ -58,7 +58,7 @@ const compile = (template, locale) => (
 );
 
 module.exports = {
-  command: 'compile [options]',
+  command: 'compile',
   describe: 'Compile templates.',
   builder: {
     locale: {
