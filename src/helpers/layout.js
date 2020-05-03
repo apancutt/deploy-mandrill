@@ -6,13 +6,13 @@ const extension = templateHelper.extension;
 const path = (layout = undefined) => (
   layout
     ? `${path()}/${layout}${extension}`
-    : `${filesystem.root}/content/layouts`
+    : `${filesystem.root}/layouts`
 );
 
 module.exports = {
   extension,
   path,
-  available: (layout) => Promise.reject(new Error('Not implemented')),
+  available: () => Promise.reject(new Error('Not implemented')),
   availableNames: () => Promise.reject(new Error('Not implemented')),
   filename: (layout) => `${layout}${extension}`,
   load: (layout) => filesystem.load(path(layout)),

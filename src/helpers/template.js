@@ -7,7 +7,7 @@ const path = (template = undefined, locale = undefined) => (
     ? locale
       ? `${path(template)}/${locale}${extension}`
       : `${path()}/${template}`
-    : `${filesystem.root}/content/templates`
+    : `${filesystem.root}/templates`
 );
 
 const name = (template, locale) => `${template}-${locale}`;

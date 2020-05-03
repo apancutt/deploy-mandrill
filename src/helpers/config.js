@@ -5,7 +5,7 @@ const filesystem = require('./filesystem');
 const path = (template = undefined) => (
   template
     ? `${templateHelper.path(template)}/config.json`
-    : `${filesystem.root}/content/config.json`
+    : `${filesystem.root}/config.json`
 );
 
 module.exports = {

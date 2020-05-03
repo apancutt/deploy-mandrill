@@ -8,14 +8,14 @@ const path = (partial = undefined, locale = undefined) => (
     ? locale
       ? `${path(partial)}/${locale}${extension}`
       : `${path()}/${partial}`
-    : `${filesystem.root}/content/partials`
+    : `${filesystem.root}/partials`
 );
 
 module.exports = {
   extension,
   path,
-  available: (partial, locale = undefined) => Promise.reject(new Error('Not implemented')),
-  availableLocales: (partial = undefined) => Promise.reject(new Error('Not implemented')),
+  available: () => Promise.reject(new Error('Not implemented')),
+  availableLocales: () => Promise.reject(new Error('Not implemented')),
   availableNames: () => Promise.reject(new Error('Not implemented')),
   filename: (locale) => `${locale}${extension}`,
   load: (partial, locale) => filesystem.load(path(partial, locale)),
