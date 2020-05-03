@@ -1,6 +1,6 @@
 # deploy-mandrill
 
-Compiles and deploys templates to Mandrill.
+Compiles, deploys and prunes templates to/from Mandrill.
 
 ## Installation
 

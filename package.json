@@ -1,7 +1,7 @@
 {
   "name": "deploy-mandrill",
   "version": "0.0.0",
-  "description": "Compiles and deploys templates to Mandrill.",
+  "description": "Compiles, deploys and prunes templates to/from Mandrill.",
   "keywords": [
     "mandrill",
     "deploy"
