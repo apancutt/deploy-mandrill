@@ -1,10 +1,6 @@
 # deploy-mandrill
 
-The template editor provided by [Mandrill](https://mandrillapp.com/templates) does not support versioning which means if you break something it cannot easily be reverted.
-
-This tool allows you to design templates offline and publish to Mandrill when you're good to go live. You can then commit your changes into this git repository for version control.
-
-Additionally, compiled HTML is optimised for e-mails by replacing embedded CSS with inline styles.
+Compiles and deploys templates to Mandrill.
 
 ## Installation
 
