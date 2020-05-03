@@ -10,6 +10,13 @@ Compiles, deploys and prunes templates to/from Mandrill.
 
 The tool will prompt for your Mandrill API key when required. Non-interactive mode is not currently supported.
 
+
+  "scripts": {
+    "compile": "deploy-mandrill compile",
+    "deploy": "deploy-mandrill deploy",
+    "prune": "deploy-mandrill prune"
+  }
+
 ## Usage
 
     deploy-mandrill compile [options] # Compile templates.
@@ -69,6 +76,26 @@ Deploy specific template(s).
 Use `*` to deploy all templates.
 
 Default: `*`
+
+## Installation as a `run-script` alias (optional)
+
+Add script aliases to your `package.json` file:
+
+```
+{
+  ...
+  "scripts": {
+    ...
+    "predeploy": "deploy-mandrill compile",
+    "deploy": "deploy-mandrill deploy",
+    "postdeploy": "deploy-mandrill prune"
+  }
+}
+```
+
+Run `yarn run deploy` or `npm run deploy` to compile, deploy and prune with a single command.
+
+If you need to pass user or environment-level options that you don't want committed into `package.json` you can provide these at call-time, e.g. `yarn run deploy --template welcome` or `npm run deploy -- --template welcome`.
 
 ## Concepts
 
