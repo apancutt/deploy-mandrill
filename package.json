@@ -1,6 +1,6 @@
 {
   "name": "deploy-mandrill",
-  "version": "0.0.0-rc.3",
+  "version": "0.0.0-rc.2",
   "description": "Compiles, deploys and prunes templates to/from Mandrill.",
   "keywords": [
     "mandrill",
