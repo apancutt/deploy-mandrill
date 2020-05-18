@@ -41,11 +41,15 @@ const command = (template, locale, local, remote, nonInteractive) => {
   });
   console.log();
 
-  return nonInteractive ? Promise.resolve({ confirmed: true }) : inquirer.prompt([{
-    message: `Publish changes to ${templateHelper.name(template, locale)}?`,
-    name: 'confirmed',
-    type: 'confirm',
-  }])
+  return (
+    nonInteractive
+      ? Promise.resolve({ confirmed: true })
+      : inquirer.prompt([{
+        message: `Publish changes to ${templateHelper.name(template, locale)}?`,
+        name: 'confirmed',
+        type: 'confirm',
+      }])
+  )
     .then(({ confirmed }) => (
       confirmed
         ? [ 'update', params ]

@@ -4,11 +4,15 @@ const templateHelper = require('../helpers/template');
 const createLogger = require('../createLogger');
 
 const prune = (client, name, nonInteractive) => (
-  nonInteractive ? Promise.resolve({ confirmed: true }) : inquirer.prompt([{
-    message: `Delete ${name}?`,
-    name: 'confirmed',
-    type: 'confirm',
-  }])
+  (
+    nonInteractive
+      ? Promise.resolve({ confirmed: true })
+      : inquirer.prompt([{
+        message: `Delete ${name}?`,
+        name: 'confirmed',
+        type: 'confirm',
+      }])
+  )
     .then(({ confirmed }) => confirmed && (
       mandrillHelper.execute(client, 'delete', { name })
         .then(() => true)
