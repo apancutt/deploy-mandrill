@@ -2,8 +2,8 @@ const inquirer = require('inquirer');
 const mandrill = require('mandrill-api/mandrill');
 
 module.exports = {
-  client: () => (
-    inquirer.prompt([{
+  client: (nonInteractive) => (
+    nonInteractive ? Promise.resolve({ key: process.env.MANDRILL_API_KEY }) : inquirer.prompt([{
       message: 'Mandrill API key',
       name: 'key',
       type: 'password',

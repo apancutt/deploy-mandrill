@@ -9,6 +9,11 @@ module.exports = yargs
     describe: 'Enable output of debugging log messages.',
     type: 'boolean',
   })
+  .option('non-interactive', {
+    default: false,
+    describe: 'Do not prompt for confirmations.',
+    type: 'boolean',
+  })
   .option('output-format', {
     choices: [ 'colorized', 'json', 'text' ],
     default: 'colorized',

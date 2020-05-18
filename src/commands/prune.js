@@ -3,8 +3,8 @@ const mandrillHelper = require('../helpers/mandrill');
 const templateHelper = require('../helpers/template');
 const createLogger = require('../createLogger');
 
-const prune = (client, name) => (
-  inquirer.prompt([{
+const prune = (client, name, nonInteractive) => (
+  nonInteractive ? Promise.resolve({ confirmed: true }) : inquirer.prompt([{
     message: `Delete ${name}?`,
     name: 'confirmed',
     type: 'confirm',
@@ -22,7 +22,7 @@ module.exports = {
 
     const logger = createLogger(argv.debug, argv.outputFormat);
 
-    return mandrillHelper.client()
+    return mandrillHelper.client(argv.nonInteractive)
       .then((client) => (
         mandrillHelper.execute(client, 'list')
           .then((response) => Promise.all(
@@ -34,7 +34,7 @@ module.exports = {
           ))
           .then((namesAndAvailables) => namesAndAvailables.filter(([ , available ]) => !available))
           .then((namesAndAvailables) => namesAndAvailables.map(([ name ]) => () => (
-            prune(client, name)
+            prune(client, name, argv.nonInteractive)
               .then((pruned) => {
                 if (pruned) {
                   logger.info(`Pruned ${name}`, { pruned });

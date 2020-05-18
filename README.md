@@ -33,6 +33,14 @@ Enable output of debugging log messages.
 
 Default: `false`
 
+##### `--non-interactive`
+
+Do not prompt for confirmations.
+
+The Mandrill API key should be provided in the `MANDRILL_API_KEY` environment variable when `--non-interactive` is `true`.
+
+Default: `false`
+
 ##### `--output-format <format>`
 
 Logging output format.

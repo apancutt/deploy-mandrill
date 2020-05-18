@@ -15,7 +15,7 @@ const render = (data) => ([
   data.html,
 ].join(os.EOL));
 
-const command = (template, locale, local, remote) => {
+const command = (template, locale, local, remote, nonInteractive) => {
 
   const params = {
     code: local.html,
@@ -41,7 +41,7 @@ const command = (template, locale, local, remote) => {
   });
   console.log();
 
-  return inquirer.prompt([{
+  return nonInteractive ? Promise.resolve({ confirmed: true }) : inquirer.prompt([{
     message: `Publish changes to ${templateHelper.name(template, locale)}?`,
     name: 'confirmed',
     type: 'confirm',
@@ -54,7 +54,7 @@ const command = (template, locale, local, remote) => {
 
 };
 
-const deploy = (client, template, locale) => (
+const deploy = (client, template, locale, nonInteractive) => (
   configHelper.load(template, locale)
     .then(({ from, subject }) => (
       compiledHelper.load(template, locale)
@@ -80,7 +80,8 @@ const deploy = (client, template, locale) => (
               subject: response.publish_subject,
               html: response.publish_code,
             }
-            : undefined
+            : undefined,
+          nonInteractive
         ))
         .then(([ command, params ]) => (
           command
@@ -126,7 +127,7 @@ module.exports = {
         templatesAndLocales.reduce((accumulator, [ template, locales ]) => [
           ...accumulator,
           ...locales.map((locale) => (client) => (
-            deploy(client, template, locale)
+            deploy(client, template, locale, argv.nonInteractive)
               .then((deployed) => {
                 if (deployed) {
                   logger.info(`Deployed ${templateHelper.name(template, locale)}`, { template, locale });
@@ -141,7 +142,7 @@ module.exports = {
           return;
         }
 
-        return mandrillHelper.client()
+        return mandrillHelper.client(argv.nonInteractive)
           .then((client) => {
 
             const next = (callbacks) => {
