@@ -1,8 +1,8 @@
 const filesystem = require('./filesystem');
 const templateHelper = require('./template');
 
-const extension = templateHelper.extension;
-const filename = templateHelper.filename;
+const extension = '.htm';
+const filename = (template, locale) => `${templateHelper.name(template, locale)}${extension}`;
 
 const path = (template = undefined, locale = undefined) => (
   template

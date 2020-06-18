@@ -24,10 +24,9 @@
   "dependencies": {
     "deepmerge": "4",
     "diff": "4",
-    "inline-css": "2",
     "inquirer": "7",
     "mandrill-api": "1",
-    "pretty": "2",
+    "mjml": "4",
     "winston": "3",
     "yargs": "15"
   },

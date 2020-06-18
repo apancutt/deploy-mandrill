@@ -1,6 +1,6 @@
 const filesystem = require('./filesystem');
 
-const extension = '.htm';
+const extension = '.mjml';
 
 const path = (template = undefined, locale = undefined) => (
   template

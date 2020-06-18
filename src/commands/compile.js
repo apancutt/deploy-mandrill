@@ -1,5 +1,4 @@
-const inlineCss = require('inline-css');
-const pretty = require('pretty');
+const mjml = require('mjml');
 const configHelper = require('../helpers/config');
 const layoutHelper = require('../helpers/layout');
 const partialHelper = require('../helpers/partial');
@@ -11,49 +10,45 @@ const renderLayout = (layout) => (
   layoutHelper.load(layout)
 );
 
-const renderTemplate = (html, template, locale) => (
+const renderTemplate = (markup, template, locale) => (
   templateHelper.load(template, locale)
-    .then((templateHtml) => html.replace('<!--TEMPLATE-->', templateHtml))
+    .then((templateHtml) => markup.replace('<!--TEMPLATE-->', templateHtml))
 );
 
-const renderPartials = (html, locale) => {
+const renderPartials = (markup, locale) => {
 
-  const next = (html) => {
+  const next = (markup) => {
 
-    const matches = [ ...html.matchAll(/<!--PARTIAL:(.+?)-->/g) ];
+    const matches = [ ...markup.matchAll(/<!--PARTIAL:(.+?)-->/g) ];
 
     if (!matches.length) {
-      return html;
+      return markup;
     }
 
     return Promise.all(
-      [ ...html.matchAll(/<!--PARTIAL:(.+?)-->/g) ]
+      [ ...markup.matchAll(/<!--PARTIAL:(.+?)-->/g) ]
         .map(([ placeholder, partial ]) => (
           partialHelper.load(partial, locale)
             .then((partialHtml) => [ placeholder, partialHtml ])
         ))
     )
-      .then((partials) => partials.reduce((html, [ placeholder, partialHtml ]) => (
-        html.replace(placeholder, partialHtml)
-      ), html))
-      .then((html) => next(html));
+      .then((partials) => partials.reduce((markup, [ placeholder, partialHtml ]) => (
+        markup.replace(placeholder, partialHtml)
+      ), markup))
+      .then((markup) => next(markup));
   };
 
-  return next(html);
+  return next(markup);
 
 };
 
 const compile = (template, locale) => (
   configHelper.load(template, locale)
     .then(({ layout }) => renderLayout(layout))
-    .then((html) => renderTemplate(html, template, locale))
-    .then((html) => renderPartials(html, locale))
-    .then((html) => inlineCss(html, {
-      preserveMediaQueries: true,
-      removeHtmlSelectors: true,
-      url: 'https://www.do-not-use-relative-urls-in-your-templates.com',
-    }))
-    .then((html) => pretty(html, { ocd: true }))
+    .then((markup) => renderTemplate(markup, template, locale))
+    .then((markup) => renderPartials(markup, locale))
+    .then((markup) => mjml(markup, { minify: true, keepComments: false }))
+    .then(({ errors, html }) => errors.length ? Promise.reject(new Error(errors.shift().formattedMessage)) : html)
     .then((html) => html.replace(/["']\{\{unsub ["'](.+)["']\}\}["']/, '\'{{unsub "$1"}}\''))
 );
 
