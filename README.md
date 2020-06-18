@@ -1,6 +1,6 @@
 # deploy-mandrill
 
-Compiles, deploys and prunes templates to/from Mandrill.
+Compiles, deploys and prunes templates to/from Mandrill using [MJML](https://mjml.io/) templates.
 
 ## Installation
 
@@ -129,7 +129,7 @@ The template is published to Mandill using the naming convention `<template>-<lo
 
 Layouts and templates often share snippets of HTML, such as welcoming or sign-off messaging. To avoid repetition, you should embed a _partial_.
 
-Like templates, each partial is stored as a subfolder in the `./partials/` folder, and contains various `.htm` files; one for each supported locale.
+Like templates, each partial is stored as a subfolder in the `./partials/` folder, and contains various `.mjml` files; one for each supported locale.
 
 Each partial is stored in the `partials/` folder. A partial file exist for each supported locale.
 
