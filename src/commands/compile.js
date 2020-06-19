@@ -47,8 +47,12 @@ const compile = (template, locale) => (
     .then(({ layout }) => renderLayout(layout))
     .then((markup) => renderTemplate(markup, template, locale))
     .then((markup) => renderPartials(markup, locale))
+    .then((markup) => markup.replace(/(\{\{ *(?:#if|elseif) *`.+?)<([^`]+` *\}\})/g, '$1_LT_$2'))
+    .then((markup) => markup.replace(/(\{\{ *(?:#if|elseif) *`.+?)>([^`]+` *\}\})/g, '$1_GT_$2'))
     .then((markup) => mjml(markup, { minify: true, keepComments: false }))
     .then(({ errors, html }) => errors.length ? Promise.reject(new Error(errors.shift().formattedMessage)) : html)
+    .then((html) => html.replace(/(\{\{ *(?:#if|elseif) *`.+?)_LT_([^`]+` *\}\})/g, '$1<$2'))
+    .then((html) => html.replace(/(\{\{ *(?:#if|elseif) *`.+?)_GT_([^`]+` *\}\})/g, '$1>$2'))
     .then((html) => html.replace(/["']\{\{unsub ["'](.+)["']\}\}["']/, '\'{{unsub "$1"}}\''))
 );
 
