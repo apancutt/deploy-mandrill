@@ -60,7 +60,7 @@ const compile = (template, locale) => (
     }))
     .then(({ markup, tokens }) => ({
       tokens,
-      html: mjml(markup, { minify: true }),
+      html: mjml(markup),
     }))
     .then(({ html, tokens }) => html.errors.length ? Promise.reject(new Error(html.errors.shift().formattedMessage)) : {
       tokens,
