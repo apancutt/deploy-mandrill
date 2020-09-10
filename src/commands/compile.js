@@ -6,8 +6,9 @@ const templateHelper = require('../helpers/template');
 const compiledHelper = require('../helpers/compiled');
 const createLogger = require('../createLogger');
 
-const renderLayout = (layout) => (
+const renderLayout = (layout, preview = null) => (
   layoutHelper.load(layout)
+    .then((markup) => preview ? markup.replace('</mj-head>', `<mj-preview>${preview}</mj-preview></mj-head>`) : markup)
 );
 
 const renderTemplate = (markup, template, locale) => (
@@ -44,7 +45,7 @@ const renderPartials = (markup, locale) => {
 
 const compile = (template, locale) => (
   configHelper.load(template, locale)
-    .then(({ layout }) => renderLayout(layout))
+    .then(({ layout, preview }) => renderLayout(layout, preview))
     .then((markup) => renderTemplate(markup, template, locale))
     .then((markup) => renderPartials(markup, locale))
     .then((markup) => ({

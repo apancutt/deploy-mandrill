@@ -160,7 +160,8 @@ The configuration file is in JSON format. At the top level is the locale for whi
 # Template-specific config at ./templates/welcome/config.json
 {
   "en-us": {
-    "subject": "Welcome Aboard!"
+    "subject": "Welcome Aboard!",
+    "preview": "Thanks for joining! Your login details are inside..."
   }
 }
 
@@ -169,6 +170,7 @@ The configuration file is in JSON format. At the top level is the locale for whi
   "en-us": {
     "layout": "default",
     "subject": "Welcome Aboard!",
+    "preview": "Thanks for joining! Your login details are inside...",
     "from": {
       "name": "My Company",
       "email": "support@mycompany.com"
