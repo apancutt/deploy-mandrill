@@ -28,12 +28,12 @@
     "mandrill-api": "1",
     "mjml": "4",
     "winston": "3",
-    "yargs": "15"
+    "yargs": "16"
   },
   "devDependencies": {
     "babel-eslint": "10",
-    "eslint": "6",
-    "jest": "25"
+    "eslint": "7",
+    "jest": "26"
   },
   "eslintConfig": {
     "env": {
